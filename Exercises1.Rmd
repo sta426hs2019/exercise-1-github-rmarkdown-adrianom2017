@@ -1,0 +1,33 @@
+---
+title: "Exercise1"
+author: "Adriano Martinelli"
+date: "16/09/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+
+```{r environment}
+library(ggplot2)
+library(gridExtra)
+```
+
+In this exercise we sample 100 data points form a log normal distribution with meanlog = 1, and sdlog = .25. We plot the data.
+```{r sample}
+set.seed(42)
+data = data.frame(x = rlnorm(100, 1, .25))
+plt1 = ggplot(data, aes(x=x)) + geom_histogram()
+plt2 = ggplot(data, aes(x=x)) + geom_histogram() + scale_x_log10()
+grid.arrange(plt1,plt2, nrow = 1)
+
+data_mean = mean(data$x)
+data_mean_log = mean(log(data$x))
+data_var = var(data$x)
+data_var_log = var(log(data$x))
+
+```
+
+The sample log mean is `r data_mean_log` and the sample sdlog is `r data_var_log`.
